@@ -1,0 +1,29 @@
+step "Deploy a Package" {
+    properties = {
+        Octopus.Action.TargetRoles = "client"
+    }
+
+    action {
+        action_type = "Octopus.TentaclePackage"
+        properties = {
+            Octopus.Action.EnabledFeatures = "Octopus.Features.SubstituteInFiles"
+            Octopus.Action.Package.DownloadOnTentacle = "False"
+            Octopus.Action.Package.FeedId = "Octopus Server (built-in)"
+            Octopus.Action.Package.PackageId = "multisub"
+            Octopus.Action.SubstituteInFiles.TargetFiles = <<-EOT
+                app\infra\Pulumi.Environment.yaml,
+                app\src\nlog.xml
+            EOT
+        }
+        worker_pool_variable = ""
+
+        packages {
+            acquisition_location = "Server"
+            feed = "Octopus Server (built-in)"
+            package_id = "multisub"
+            properties = {
+                SelectionMode = "immediate"
+            }
+        }
+    }
+}
