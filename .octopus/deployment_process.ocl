@@ -11,7 +11,7 @@ step "Deploy a Package" {
             Octopus.Action.Package.FeedId = "Octopus Server (built-in)"
             Octopus.Action.Package.PackageId = "multisub"
             Octopus.Action.SubstituteInFiles.TargetFiles = <<-EOT
-                app\infra\Pulumi.Environment.yaml,
+                app\infra\Pulumi.Environment.yaml
                 app\src\nlog.xml
             EOT
         }
